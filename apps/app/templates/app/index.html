@@ -1,0 +1,22 @@
+{% load render_bundle from webpack_loader %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {% csrf_token %}
+    <title>Django con Vue</title>
+</head>
+<body>
+<h1 style="text-align: center">Planificación con Django y Vue</h1>
+<div id="app">
+    {{ dato }}
+    <aplicacion/>
+</div>
+<pre>
+  hola
+</pre>
+{% render_bundle 'main' %}
+
+</body>
+</html>
