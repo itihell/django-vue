@@ -11,10 +11,17 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import os
 from pathlib import Path
+import environ
 
+ROOT_DIR = (
+        environ.Path(__file__) - 2
+)  # (planificacion/config/settings.py - 2 = sgu2/)
+env = environ.Env()
+
+print(ROOT_DIR)
+env.read_env(str(ROOT_DIR.path(".env")))
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -26,7 +33,6 @@ SECRET_KEY = 'django-insecure-f62#&e0dsd%82yr*_$b)k+lms6l0_*3(n#d*2h*woybj0r=m2+
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -40,7 +46,7 @@ INSTALLED_APPS = [
 
     # Aplicaciones Locales
     'webpack_loader',
-    'apps.app.apps'
+    'apps.app'
 
 ]
 
@@ -75,17 +81,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'kernel.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # }
+    "default": env.db("DATABASE_URL")
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -105,7 +110,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -118,7 +122,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/

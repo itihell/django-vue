@@ -8,7 +8,7 @@
       <label>Password <input v-model="fields.password"/></label>
     </div>
     <div>
-      <label>Password <input v-model="fields.password"/></label>
+      <button type="button" @click="getLogin">Entrar</button>
     </div>
   </div>
 </template>
@@ -49,7 +49,20 @@ export default {
   },
   created() {
   },
-  methods: {}
+  methods: {
+    async getLogin() {
+      this.procesando = true
+      const url = `/api/v1/login`
+      await this.axios
+          .post(url, this.fields)
+          .then((resp) => {
+            console.log(resp.data)
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+    }
+  }
 }
 </script>
 <style scoped></style>
